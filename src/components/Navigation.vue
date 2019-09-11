@@ -1,27 +1,52 @@
 <template>
-<div id="Navigation">
-    <Sensors></Sensors>
-    <VirtualComponent></VirtualComponent>
-    <Robot></Robot>
-</div>
-    
+  <div id="Navigation">
+    <div
+      class="view-selector"
+      v-for="(section, index) in sections"
+      :key="index"
+      @click="goToSection(section)"
+      v-bind:class="{activeSection: active == section}"
+    >{{section.toUpperCase()}}</div>
+  </div>
 </template>
 
 <script>
-import Sensors from './Sensors'
-import Robot from './Robot'
-import VirtualComponent from './VirtualComponent'
 export default {
-    name: 'Navigation',
-    components: {Sensors, Robot, VirtualComponent}
-}
+    props: {
+        active: ""
+    },
+  data() {
+    return {
+      sections: ["main", "sensors", "virtualComponents"]
+    };
+  },
+  methods: {
+    goToSection(s) {
+      this.$emit("switchView", [s]);
+    }
+  }
+};
 </script>
 
 <style scoped>
 #Navigation {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    border-bottom: 2px gray solid;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-bottom: 2px gray solid;
+}
+.view-selector {
+  padding: 10px;
+  font-size: 1.2em;
+  background: lightgray;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  margin: 5px;
+}
+
+.view-selector:hover {
+  cursor: pointer;
+}
+.activeSection {
+    background: green;
 }
 </style>

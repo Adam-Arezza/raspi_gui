@@ -295,13 +295,15 @@ export default {
           label: "GPIO21",
           assigned: false
         }
-      ]
+      ],
+      selectedPin: undefined
     };
   },
   methods: {
     pinInfo(pin) {
-      let selectedPin = this.gpioPins.find(p => p.gpioPin == pin);
-      console.log(selectedPin);
+      this.selectedPin = this.gpioPins.find(p => p.gpioPin == pin);
+      console.log(this.selectedPin);
+      this.$emit('selectPin', [this.selectedPin])
     }
   }
 };
@@ -316,6 +318,7 @@ export default {
   justify-content: center;
   padding: 5px;
   margin: 0px;
+  max-height: 450px;
 }
 .gpio-pin {
   background: lightblue;
