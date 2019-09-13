@@ -3,9 +3,9 @@
     <button
       v-for="(pin) in gpioPins"
       :key="pin.pinNum"
-      @click="pinInfo(pin.gpioPin)"
+      @click="pinInfo(pin)"
       v-bind:class="{'gpio-pin': pin.gpio, 'no-gpio': !pin.gpio}"
-    >{{pin.label}}</button>
+     >{{pin.label}}</button>
   </div>
 </template>
 
@@ -301,9 +301,9 @@ export default {
   },
   methods: {
     pinInfo(pin) {
-      this.selectedPin = this.gpioPins.find(p => p.gpioPin == pin);
+      this.selectedPin = pin
       console.log(this.selectedPin);
-      this.$emit('selectPin', [this.selectedPin])
+      this.$emit("selectPin", [this.selectedPin]);
     }
   }
 };
@@ -316,7 +316,7 @@ export default {
   max-width: 250px;
   grid-template-columns: 100px 100px;
   justify-content: center;
-  padding: 5px;
+  padding: 15px;
   margin: 0px;
   max-height: 450px;
 }
@@ -324,12 +324,12 @@ export default {
   background: lightblue;
 }
 .gpio-pin:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 .no-gpio {
-    background: lightsalmon;
+  background: lightsalmon;
 }
 .no-gpio {
-    cursor: pointer;
+  cursor: pointer;
 }
 </style>

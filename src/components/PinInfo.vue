@@ -3,8 +3,9 @@
     <div class="pin-data" v-if="pinData">
       <h2>Pin Info</h2>
       <p>Pin Number: {{pinData[0].pinNum}}</p>
-      <p>GPIO Number: {{pinData[0].gpioPin}}</p>
-      <p>Assigned: {{pinData[0].assigned}}</p>
+      <p v-if="pinData[0].gpioPin" >GPIO Number: {{pinData[0].gpioPin}}</p>
+      <p v-if="pinData[0].gpioPin">Assigned: {{pinData[0].assigned}}</p>
+      <p v-if="!pinData[0].gpioPin">Assigned: true</p>
     </div>
   </div>
 </template>

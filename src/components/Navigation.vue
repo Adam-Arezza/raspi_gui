@@ -17,7 +17,7 @@ export default {
     },
   data() {
     return {
-      sections: ["main", "sensors", "virtualComponents"]
+      sections: ["main", "sensors", "virtual Components"]
     };
   },
   methods: {
