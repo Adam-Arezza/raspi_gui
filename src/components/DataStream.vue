@@ -46,8 +46,10 @@ export default {
 <style scoped>
 #data-stream {
     max-width: 600px;
+    max-height: 700px;
 }
 .data-btns {
+  display: flex;
     text-align: center;
 }
 .data-window {
@@ -60,5 +62,6 @@ export default {
   overflow: scroll;
   resize: both;
   max-width: 500px;
+  max-height: 100%;
 }
 </style>

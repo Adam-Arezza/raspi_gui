@@ -3,7 +3,6 @@
     <div id="main" v-if="activeSection == 'main'">
       <img @click="showGpio = !showGpio" class="piLogo" src="../assets/pi-logo.png" />
       <Gpio v-on:selectPin="pinSelect" :key="1"></Gpio>
-      <PinInfo :pinData="selectedPin" :key="2"></PinInfo>
       <DataStream></DataStream>
     </div>
     <div id="sensors" v-if="activeSection == 'sensors'">
@@ -19,13 +18,12 @@
 <script>
 import DataStream from "./DataStream";
 import Gpio from "./Gpio";
-import PinInfo from "./PinInfo";
 import VirtualComponent from "./VirtualComponent";
 import Sensors from "./Sensors";
 
 export default {
   props: ["activeSection"],
-  components: { DataStream, PinInfo, Gpio, VirtualComponent, Sensors },
+  components: { DataStream, Gpio, VirtualComponent, Sensors },
   data() {
     return {
       selectedPin: "",
@@ -41,12 +39,12 @@ export default {
 </script>
 
 <style scoped>
-#main {
-  display: flex;
-  /* justify-content: space-around; */
-}
 #main-content {
   margin-top: 10px;
+  display: flex;
+}
+#main {
+  display: flex;
 }
 .piLogo {
   width: 40px;

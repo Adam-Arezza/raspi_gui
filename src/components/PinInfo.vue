@@ -2,31 +2,49 @@
   <div class="pin-info">
     <div class="pin-data" v-if="pinData">
       <h2>Pin Info</h2>
-      <p>Pin Number: {{pinData[0].pinNum}}</p>
-      <p v-if="pinData[0].gpioPin" >GPIO Number: {{pinData[0].gpioPin}}</p>
-      <p v-if="pinData[0].gpioPin">Assigned: {{pinData[0].assigned}}</p>
-      <p v-if="!pinData[0].gpioPin">Assigned: true</p>
+      <p>Pin Number: {{pinData.pinNum}}</p>
+      <p v-if="pinData.gpioPin" >GPIO Number: {{pinData.gpioPin}}</p>
+      <p v-if="pinData.gpioPin">Assigned: {{pinData.assigned}}</p>
+      <p v-if="!pinData.gpioPin">Assigned: true</p>
+      <button class="close-btn" @click="closePinInfo">X</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["pinData"]
+  props: ["pinData"],
+  methods: {
+    closePinInfo() {
+      this.$emit('closePin')
+    }
+  }
 };
 </script>
 
 <style scoped>
-.pin-info {
-    display: flex;
+h2 {
+  margin: 0px;
+}
+p {
+  font-size: 1.25em;
 }
 .pin-data {
-  justify-self: flex-start;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
   background: lightgray;
-  height: 200px;
-  width: 125px;
-  border-radius: 10px;
-  margin: 10px;
+  text-align: center;
+  width: 100%;
+  border: 1px dashed black;
+}
+.close-btn {
+  background: black;
+  color: white;
+  border: none;
+  padding: 8px;
+  font-size: 1.1em;
+}
+.close-btn:hover {
+  cursor: pointer;
 }
 </style>

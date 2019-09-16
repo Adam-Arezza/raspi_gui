@@ -1,4 +1,5 @@
 <template>
+<div>
   <div id="gpio">
     <button
       v-for="(pin) in gpioPins"
@@ -7,10 +8,15 @@
       v-bind:class="{'gpio-pin': pin.gpio, 'no-gpio': !pin.gpio}"
      >{{pin.label}}</button>
   </div>
+  <PinInfo :pinData="selectedPin" v-on:closePin="closePin"></PinInfo>
+</div>
 </template>
 
 <script>
+import PinInfo from './PinInfo'
+
 export default {
+  components: {PinInfo},
   data() {
     return {
       gpioPins: [
@@ -302,8 +308,11 @@ export default {
   methods: {
     pinInfo(pin) {
       this.selectedPin = pin
-      console.log(this.selectedPin);
-      this.$emit("selectPin", [this.selectedPin]);
+      // console.log(this.selectedPin);
+      // this.$emit("selectPin", [this.selectedPin]);
+    },
+    closePin() {
+      this.selectedPin = undefined
     }
   }
 };
