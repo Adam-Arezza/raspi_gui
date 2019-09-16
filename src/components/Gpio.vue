@@ -1,5 +1,5 @@
 <template>
-<div>
+<div id="gpio-container">
   <div id="gpio">
     <button
       v-for="(pin) in gpioPins"
