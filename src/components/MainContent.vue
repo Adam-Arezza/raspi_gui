@@ -2,25 +2,33 @@
   <div id="main-content">
     <div id="main" v-if="activeSection == 'main'">
       <img @click="showGpio = !showGpio" class="piLogo" src="../assets/pi-logo.png" />
-      <Gpio v-on:selectPin="pinSelect" :key="1"></Gpio>
+      <Gpio v-on:selectPin="pinSelect" :key="1" :gpioAssigned="gpioAssigned"></Gpio>
       <DataStream></DataStream>
     </div>
-    <div id="sensor-grid" v-if="selectedSensors && activeSection == 'main'">
+    <div id="sensor-grid" v-if="sensorList && activeSection == 'main'">
         <Sensor
-          v-for="(sensor, index) in selectedSensors"
+          v-for="(sensor, index) in sensorList"
           :key="sensor.name + index"
           :sensorData="sensor"
           v-on:gpioAssign="assignGpio"
         ></Sensor>
       </div>
-    <div id="sensors" v-if="activeSection == 'sensors'">
-      <Sensors v-on:sensorSelect="addSensor"></Sensors>
+    <div id="sensors-section" v-if="activeSection == 'sensors'">
+      <Sensors v-on:addSensor="addSensor"></Sensors>
     </div>
     <div id="virtualComponent" v-if="activeSection == 'virtual Components'">
       <VirtualComponent></VirtualComponent>
     </div>
     <div id="assignGpio" v-if="gpioAssign">
       <h1>Assign gpio pop-up</h1>
+      <div v-for="(pin, index) in sensorSelect" :key="index">
+      </div>
+      <span v-if="!selectedPin">Select the gpio pin you would like to assign to</span>
+      <div v-if="selectedPin">
+        <p>Assign to GPIO pin {{selectedPin.gpioPin}}?</p>
+        <button @click="assign">Yes</button>
+        <button @click="cancelAssign">Cancel</button>
+      </div>
       <button @click="closeAssign">Done</button>
     </div>
   </div>
@@ -35,30 +43,44 @@ import Sensor from "./Sensor";
 
 export default {
   props: ["activeSection"],
-  components: { DataStream, Gpio, VirtualComponent, Sensors, Sensor },
+  components: { DataStream, Gpio, VirtualComponent, Sensors, Sensor},
   data() {
     return {
       selectedPin: "",
-      showGpio: false,
-      selectedSensors: [],
-      gpioAssign: false
+      sensorList: [],
+      gpioAssign: false,
+      gpioAssigned: undefined,
+      sensorSelect: undefined
     };
   },
   methods: {
     pinSelect(pin) {
-      this.selectedPin = pin;
+      this.selectedPin = pin[0];
     },
     addSensor(sensor) {
-      let numberOfSensors = this.selectedSensors.filter(s => s.name == sensor[0].name).length
-
-      this.selectedSensors.push(sensor[0]);
+      console.log(sensor)
+      this.sensorList.push(sensor[0]);
     },
     assignGpio(pins) {
       this.gpioAssign = true;
+      this.sensorSelect = pins[0]
       console.log(pins[0]);
     },
     closeAssign() {
       this.gpioAssign = false;
+    },
+    assign() {
+      console.log('Assigning to: ')
+      console.log(this.selectedPin)
+      let sensor = this.sensorSelect
+      let pin = this.selectedPin
+      this.gpioAssigned = {
+        gpio: sensor.pins
+      }
+    },
+    cancelAssign() {
+      console.log('Cancelled pin assignment')
+      this.selectedPin = undefined
     }
   }
 };
@@ -82,5 +104,8 @@ export default {
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: auto;
   max-height: 200px;
+}
+#sensors-section {
+  width: 100%;
 }
 </style>

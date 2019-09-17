@@ -9,6 +9,7 @@
      >{{pin.label}}</button>
   </div>
   <PinInfo :pinData="selectedPin" v-on:closePin="closePin"></PinInfo>
+  <p>{{newPinAssignment}}</p>
 </div>
 </template>
 
@@ -16,6 +17,7 @@
 import PinInfo from './PinInfo'
 
 export default {
+  props: ['gpioAssigned'],
   components: {PinInfo},
   data() {
     return {
@@ -308,11 +310,19 @@ export default {
   methods: {
     pinInfo(pin) {
       this.selectedPin = pin
-      // console.log(this.selectedPin);
-      // this.$emit("selectPin", [this.selectedPin]);
+      console.log(this.selectedPin);
+      this.$emit("selectPin", [this.selectedPin]);
     },
     closePin() {
       this.selectedPin = undefined
+    }
+  },
+  computed: {
+    newPinAssignment() {
+      if(this.gpioAssigned) {
+        console.log('A new pin assignment made')
+        console.log(this.gpioAssigned)
+      }
     }
   }
 };

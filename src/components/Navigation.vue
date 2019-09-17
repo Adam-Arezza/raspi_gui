@@ -34,6 +34,7 @@ export default {
   flex-direction: row;
   justify-content: center;
   border-bottom: 2px gray solid;
+  width: 100%;
 }
 .view-selector {
   padding: 10px;

@@ -1,11 +1,11 @@
 <template>
     <div id="sensor" v-if="sensorData">
-        <p>{{sensorData.id}}</p>
-        <p>Pin List</p>
-        <ul>
-            <li v-for="(pin, index) in sensorData.pins" :key="index">{{pin}}</li>
+        <p>Name: {{sensorData.name}}</p>
+        <p># of pins: {{sensorData.pins}}</p>
+        <ul v-if="sensorData.pinAssignment">
+            <li v-for="(pin, index) in sensorData.pinAssignment" :key="index">{{pin}}</li>
         </ul>
-        <button v-if="pinAssignment.length < 1" @click="(gpioAssign(sensorData.pins))">Assign Gpio</button>
+        <button v-if="pinAssignment.length < 1" @click="(gpioAssign(sensorData))">Assign Gpio</button>
     </div>
 </template>
 
