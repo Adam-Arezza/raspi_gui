@@ -1,4 +1,7 @@
 module.exports = {
+  // transformAssetUrls: {
+  //   img: 'src'
+  // },
   lintOnSave: false,
   configureWebpack: {
     externals: {

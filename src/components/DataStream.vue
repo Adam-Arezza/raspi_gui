@@ -62,6 +62,6 @@ export default {
   overflow: scroll;
   resize: both;
   max-width: 500px;
-  max-height: 100%;
+  max-height: 250px;
 }
 </style>

@@ -329,6 +329,10 @@ export default {
 </script>
 
 <style scoped>
+#gpio-container {
+  display: flex;
+  flex-direction: row;
+}
 #gpio {
   display: grid;
   background: green;
