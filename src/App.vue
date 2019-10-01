@@ -3,7 +3,9 @@
     <Menu v-on:addSensor="addSensor"></Menu>
     <MainContent :sensorList="sensorList"></MainContent>
     <DataStream></DataStream>
-    <Board :sensors="sensorList"></Board>
+    <Board :sensors="sensorList" :startBoard="start"></Board>
+    <button @click="startBoard">START</button>
+    <button @click="boardDisconnect">DISCONNECT</button>
   </div>
 </template>
 
@@ -20,7 +22,8 @@ export default {
   data() {
     return {
       runningOnPi: false,
-      sensorList: []
+      sensorList: [],
+      start: false
     }
   },
   created() {
@@ -35,6 +38,12 @@ export default {
   methods: {
     addSensor(name) {
       console.log(name[0])
+    },
+    startBoard() {
+      this.start = true
+    },
+    boardDisconnect() {
+      this.start = false
     }
   }
 };
